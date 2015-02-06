@@ -1,0 +1,10 @@
+data=read.table("household_power_consumption.txt",header=TRUE,sep=";",na.strings="?")
+data$Date=as.Date(data$Date,"%d/%m/%Y")
+x=which(data$Date%in%c(as.Date("2007-02-01"),as.Date("2007-02-02")))
+usedata=data[x,]
+usedata$Weekday=weekdays(usedata$Date)
+Y=cbind(usedata[,7],usedata[,8],usedata[,9])
+matplot(Y,type="l",lty="solid",col=c("black","red","blue"),axes=F,xlab="",ylab="Energy sub metering")
+axis(2)
+axis(1,at=c(1,min(which(usedata$Weekday=="¬P´Á¤­")),length(usedata[,1])),labels=c("Thu","Fri","Sat"))
+legend("topright",lty="solid",col=c("black","red","blue"),legend=c("Submetering_1","Submetering_2","Submetering_3"))
